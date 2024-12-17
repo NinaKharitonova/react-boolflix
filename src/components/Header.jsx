@@ -1,15 +1,27 @@
-import React from "react";
+import { useState } from "react";
+
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 export default function Header() {
+  const { searchMovies } = useGlobalContext();
+
+  const [userTerm, setUserTerm] = useState("");
+
+  const hadleSearchSubmit = (e) => {
+    e.preventDefault();
+    searchMovies(userTerm);
+  };
+  const handleUserTermChange = (e) => {
+    setUserTerm(e.target.value);
+  };
+
   return (
-    <>
-      <div>
-        <header>
-          <div className="container">
-            <h1 className="mt-5">Boolflix</h1>
-          </div>
-        </header>
-      </div>
-    </>
+    <header>
+      <h1>Booflix</h1>
+      <form onSubmit={hadleSearchSubmit}>
+        <input value={userTerm} onChange={handleUserTermChange} type="text" />
+        <button>Cerca</button>
+      </form>
+    </header>
   );
 }
