@@ -3,13 +3,14 @@ import { useState } from "react";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 export default function Header() {
-  const { searchMovies } = useGlobalContext();
+  const { searchMovies, searchSeries } = useGlobalContext();
 
   const [userTerm, setUserTerm] = useState("");
 
   const hadleSearchSubmit = (e) => {
     e.preventDefault();
     searchMovies(userTerm);
+    searchSeries(userTerm);
   };
   const handleUserTermChange = (e) => {
     setUserTerm(e.target.value);

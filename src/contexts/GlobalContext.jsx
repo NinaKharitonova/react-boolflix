@@ -18,21 +18,79 @@ export const GlobalContextProvider = ({ children }) => {
     fetch(`${apiUrl}/search/movie?query=${term}`, fetchConfig)
       .then((res) => res.json())
       .then((data) => {
-        setGlobaldate({
-          ...globalDate,
-          movies: data.results,
+        const normalizedDate = data.results.map((movie) => {
+          const {
+            id,
+            poster_path,
+            title,
+            original_title,
+            original_language,
+            vote_average,
+          } = movie;
+
+          return {
+            id,
+            poster: poster_path,
+            title,
+            original_title,
+            lang: original_language,
+            vote_average,
+          };
         });
+
+        setGlobalDate((previousGlobalDate) => ({
+          ...previousGlobalDate,
+          movies: normalizedDate,
+        }));
       });
   };
 
-  const [globalDate, setGlobaldate] = useState({
+  const fetchSeries = (term) => {
+    const fetchConfig = {
+      method: "GET",
+      headers,
+    };
+
+    fetch(`${apiUrl}/search/tv?query=${term}`, fetchConfig)
+      .then((res) => res.json())
+      .then((data) => {
+        const normalizedDate = data.results.map((serie) => {
+          const {
+            id,
+            poster_path,
+            name,
+            original_name,
+            original_language,
+            vote_average,
+          } = serie;
+
+          return {
+            id,
+            poster: poster_path,
+
+            title: name,
+            original_title: original_name,
+            lang: original_language,
+            vote_average,
+          };
+        });
+
+        setGlobalDate((previousGlobalDate) => ({
+          ...previousGlobalDate,
+          series: normalizedDate,
+        }));
+      });
+  };
+
+  const [previousGlobalDate, setGlobalDate] = useState({
     movies: [],
     searchMovies: fetchMovies,
     series: [],
+    searchSeries: fetchSeries,
   });
 
   return (
-    <GlobalContext.Provider value={globalDate}>
+    <GlobalContext.Provider value={previousGlobalDate}>
       {children}
     </GlobalContext.Provider>
   );
