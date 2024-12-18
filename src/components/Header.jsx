@@ -17,11 +17,17 @@ export default function Header() {
   };
 
   return (
-    <header>
-      <h1>Booflix</h1>
-      <form onSubmit={hadleSearchSubmit}>
-        <input value={userTerm} onChange={handleUserTermChange} type="text" />
-        <button>Cerca</button>
+    <header className="header-page">
+      <h1 className="logo">Booflix</h1>
+      <form onSubmit={hadleSearchSubmit} className="searchbar-page">
+        <input
+          value={userTerm}
+          onChange={handleUserTermChange}
+          type="text"
+          placeholder="Cerca un film o una serie"
+          className="input"
+        />
+        <button className="button">Cerca</button>
       </form>
     </header>
   );

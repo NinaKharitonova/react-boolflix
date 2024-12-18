@@ -6,11 +6,11 @@ export default function Main() {
   return (
     <main>
       <ProductionList productions={movies}>
-        <h2>Movies List</h2>
+        <h2 className="title-main">Movies List</h2>
       </ProductionList>
-      <hr />
+
       <ProductionList productions={series}>
-        <h2>Serie tv List</h2>
+        <h2 className="title-main">Serie tv List</h2>
       </ProductionList>
     </main>
   );

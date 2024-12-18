@@ -26,6 +26,7 @@ export const GlobalContextProvider = ({ children }) => {
             original_title,
             original_language,
             vote_average,
+            overview,
           } = movie;
 
           return {
@@ -35,6 +36,7 @@ export const GlobalContextProvider = ({ children }) => {
             original_title,
             lang: original_language,
             vote_average,
+            overview,
           };
         });
 
@@ -62,6 +64,7 @@ export const GlobalContextProvider = ({ children }) => {
             original_name,
             original_language,
             vote_average,
+            overview,
           } = serie;
 
           return {
@@ -72,6 +75,7 @@ export const GlobalContextProvider = ({ children }) => {
             original_title: original_name,
             lang: original_language,
             vote_average,
+            overview,
           };
         });
 

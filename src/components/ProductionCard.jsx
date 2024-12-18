@@ -1,29 +1,25 @@
+import { useState } from "react";
+
 export default function ProductionCard({ production }) {
   //Funzione per leggere le bandiere
-  const formatLanguage = (lang) => {
-    if (lang === "en") return "GB";
-    return lang.toUpperCase();
-  };
+  const formatLanguage = (lang) => (lang === "en" ? "GB" : lang.toUpperCase());
 
   //Funzione per inserire i poster nelle Card
-  const buildPosterUrl = (poster) => {
-    const imageUrl = `https://image.tmdb.org/t/p/`;
-    const size = `/w342`;
-    return imageUrl + size + poster;
-  };
+  const buildPosterUrl = (poster) =>
+    poster ? `https://image.tmdb.org/t/p/w342${poster}` : "default-poster.png";
 
   //Funzione per convertire il voto in numero intero fino al 5
-  const convertVoteToStars = (vote) => {
-    return Math.ceil(vote / 2);
-  };
-
-  const stars = convertVoteToStars(production.vote_average);
+  const stars = Math.ceil(production.vote_average / 2);
 
   //Card
   return (
-    <ul key={production.id}>
+    <ul key={production.id} className="card">
       <li>
-        <img src={buildPosterUrl(production.poster)} />
+        <img
+          src={buildPosterUrl(production.poster)}
+          alt={production.title || "poster"}
+          className="poster"
+        />
       </li>
       <li>
         <strong>Titolo:</strong>
@@ -41,6 +37,7 @@ export default function ProductionCard({ production }) {
             production.lang
           )}/flat/64.png`}
           alt={`Flag of ${production.original_language || "unknown"}`}
+          className="flag"
         />
       </li>
       <li>
@@ -61,6 +58,12 @@ export default function ProductionCard({ production }) {
           ))}
         </div>
       </li>
+      {production.overview && (
+        <li>
+          <strong>Descrizione:</strong>
+          <p className="description">{production.overview}</p>
+        </li>
+      )}
     </ul>
   );
 }
